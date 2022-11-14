@@ -1,0 +1,17 @@
+name: Automated API tests using Postman CLI
+
+on: push
+
+jobs:
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.PMAK-6371dde00b1a226009cf9854-ea6165899199d697314d85c7fd5784311a }}
+      - name: Run API tests
+        run: |
+          postman collection run "17545323-1d7926f6-9a34-478b-9785-3690423f036d" -e "17545323-7cf2b8f2-be50-4bf6-a573-9723bc3c2155"
